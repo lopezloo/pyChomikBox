@@ -522,6 +522,8 @@ class ChomikUploader(object):
                 raise UploadException
 
             self.finished = True
+            if self.progress_callback is not None:
+                self.progress_callback(self)
             return resp['@fileid']
 
     def resume(self):
@@ -597,6 +599,8 @@ class ChomikDownloader(object):
                     if self.paused:
                         return 'paused'
                 self.finished = True
+                if self.progress_callback is not None:
+                    self.progress_callback(self)
                 return True
             else:
                 return False
